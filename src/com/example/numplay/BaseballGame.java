@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class BaseballGame {
     // --------
     // 필드 전역변수
-    private final ArrayList<Integer> generateNum; //inputNum : 사용자 , generateNum : 컴퓨터
+    private final ArrayList<Integer> generateNums; //inputNum : 사용자 , generateNum : 컴퓨터
 
     ArrayList<Integer> generateNum() {
         HashSet<Integer> answerNum = new HashSet<>(); //지역변수 generateNum 안에서만 -
@@ -22,7 +22,7 @@ public class BaseballGame {
     }
 
     public BaseballGame() {
-        this.generateNum = generateNum(); //지역변수를 만들어서 전역변수에 할당. // 생성자
+        this.generateNums = generateNum(); //지역변수를 만들어서 전역변수에 할당. // 생성자
     }
 
     protected boolean validateInput(String inputNum) {
@@ -46,21 +46,39 @@ public class BaseballGame {
         }
         return true;
     }
-
+    // 스트라이크 개수
     private int countStrike (String inputNum){
         int strike = 0;
-        for (int i = 0; i < 3; i++) {
-            if (this.generateNum.get(i) == Character.getNumericValue((inputNum.charAt(i)))) {
-                strike++;
-            }
+        int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
+
+        int firstNum = parseInputNum / 100;
+        int secondNum = (parseInputNum % 100) /10;
+        int thirdNum =  (parseInputNum % 100) % 10;
+
+        if(this.generateNums.get(0) == firstNum) {
+            strike++;
+        }
+        if(this.generateNums.get(1) == secondNum) {
+            strike++;
+        }
+        if(this.generateNums.get(2) == thirdNum) {
+            strike++;
         }
         return strike;
     }
     // 볼 개수
     private int countBall (String inputNum){
         int ball = 0;
-        for (int i = 0; i < 3; i++) {
-            if (this.generateNum.contains(Character.getNumericValue(inputNum.charAt(i)))) {
+        int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
+
+        int firstNum = parseInputNum / 100;
+        int secondNum = (parseInputNum % 100) / 10;
+        int thirdNum = (parseInputNum % 100) % 10;
+
+        for(int i = 0; i < 3; i++) {
+            if(this.generateNums.get(i) == firstNum ||
+                    this.generateNums.get(i) == secondNum ||
+                    this.generateNums.get(i) == thirdNum) {
                 ball++;
             }
         }
@@ -72,7 +90,7 @@ public class BaseballGame {
             // 1. 유저에게 입력값을 받음
             Scanner sc = new Scanner(System.in);
             System.out.println("숫자를 입력하세요: ");
-            String input = sc.nextLine();
+            String input = sc.next();
 
             // 2. 올바른 입력값을 받았는지 검증
             if (!validateInput(input)) {

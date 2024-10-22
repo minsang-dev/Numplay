@@ -8,8 +8,10 @@ import java.util.Scanner;
 public class BaseballGame2 {
     // --------
     // 필드 전역변수
-    private final ArrayList<Integer> generateNum; //inputNum : 사용자 , generateNum : 컴퓨터
+    private final ArrayList<Integer> generateNums; //inputNum : 사용자 , generateNum : 컴퓨터
 
+    //  -------
+    // 메소드
     ArrayList<Integer> generateNum() {
         HashSet<Integer> answerNum = new HashSet<>(); //지역변수 generateNum 안에서만 -
         Random random = new Random();
@@ -21,8 +23,10 @@ public class BaseballGame2 {
         return new ArrayList<>(answerNum); // answerNum = generateNum
     }
 
+    // ---------
+    // 생성자
     public BaseballGame2() {
-        this.generateNum = generateNum(); //지역변수를 만들어서 전역변수에 할당. // 생성자
+        this.generateNums = generateNum(); //지역변수를 만들어서 전역변수에 할당.
     }
 
     protected boolean validateInput(String inputNum) {
@@ -47,20 +51,44 @@ public class BaseballGame2 {
         return true;
     }
 
+    /* 규칙
+     * 1. 숫자와 자리의 위치가 맞으면 스트라이크, 숫자만 맞으면 볼
+     * 숫자가 하나도 맞지 않을 경우 아웃으로 표시됨 */
+
+    // 스트라이크 개수
     private int countStrike (String inputNum){
         int strike = 0;
-        for (int i = 0; i < 3; i++) {
-            if (this.generateNum.get(i) == Character.getNumericValue((inputNum.charAt(i)))) {
-                strike++;
-            }
+        int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
+
+        int firstNum = parseInputNum / 100;
+        int secondNum = (parseInputNum % 100) /10;
+        int thirdNum =  (parseInputNum % 100) % 10;
+
+        if(this.generateNums.get(0) == firstNum) {
+            strike++;
+        }
+        if(this.generateNums.get(1) == secondNum) {
+            strike++;
+        }
+        if(this.generateNums.get(2) == thirdNum) {
+            strike++;
         }
         return strike;
     }
+
     // 볼 개수
-    private int countBall (String inputNum){
+    private int countBall (String inputNum) {
         int ball = 0;
-        for (int i = 0; i < 3; i++) {
-            if (this.generateNum.contains(Character.getNumericValue(inputNum.charAt(i)))) {
+        int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
+
+        int firstNum = parseInputNum / 100;
+        int secondNum = (parseInputNum % 100) / 10;
+        int thirdNum = (parseInputNum % 100) % 10;
+
+        for(int i = 0; i < 3; i++) {
+            if(this.generateNums.get(i) == firstNum ||
+                    this.generateNums.get(i) == secondNum ||
+                    this.generateNums.get(i) == thirdNum) {
                 ball++;
             }
         }
@@ -92,8 +120,6 @@ public class BaseballGame2 {
 
             // 7. 힌트 출력
             BaseballGameDisplay2.displayHint(strike, ball);
-            // 스트라이크 개수
-
         }
     }
 }
