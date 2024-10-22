@@ -1,26 +1,24 @@
 package com.example.numplay2;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class BaseballGame2 {
     // --------
     // 필드 전역변수
     private final ArrayList<Integer> generateNums; //inputNum : 사용자 , generateNum : 컴퓨터
+    private final List<Character> NUM_CHAR = List.of('1','2','3','4','5','6','7','8','9');
 
     //  -------
-    // 메소드
+    // generateNum 메소드
     ArrayList<Integer> generateNum() {
-        HashSet<Integer> answerNum = new HashSet<>(); //지역변수 generateNum 안에서만 -
+        HashSet<Integer> answerNum = new HashSet<>();
         Random random = new Random();
 
         while (answerNum.size() < 3) {
-            int randomNum = random.nextInt(8) + 1;
+            int randomNum = random.nextInt(9) + 1; // 0~n까지 n은 첫번째 입력값 (n=9)
             answerNum.add(randomNum);
         }
-        return new ArrayList<>(answerNum); // answerNum = generateNum
+        return new ArrayList<>(answerNum); // answerNum = generateNum 비교
     }
 
     // ---------
@@ -33,17 +31,16 @@ public class BaseballGame2 {
         if (inputNum.length() != 3) {
             return false;
         }
-        // 각각 문자 확인
+        // 각 자리 문자 확인
         char num1 = inputNum.charAt(0);
         char num2 = inputNum.charAt(1);
         char num3 = inputNum.charAt(2);
 
-        // 숫자인지, 0이 포함되어 있는지 확인
-        if (!Character.isDigit(num1) || num1 == '0' ||
-                !Character.isDigit(num2) || num2 == '0' ||
-                !Character.isDigit(num1)) {
+        // 1 ~ 9 사이의 숫자(char) 인지 확인
+        if (!NUM_CHAR.containsAll(List.of(num1, num2, num3))) {
             return false;
         }
+
         // 중복된 문자가 있는지 확인
         if (num1 == num2 || num1 == num2 || num2 == num3) {
             return false;
@@ -55,13 +52,13 @@ public class BaseballGame2 {
      * 1. 숫자와 자리의 위치가 맞으면 스트라이크, 숫자만 맞으면 볼
      * 숫자가 하나도 맞지 않을 경우 아웃으로 표시됨 */
 
-    // 스트라이크 개수
+    // 4. 스트라이크 개수 카운트
     private int countStrike (String inputNum){
         int strike = 0;
         int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
 
         int firstNum = parseInputNum / 100;
-        int secondNum = (parseInputNum % 100) /10;
+        int secondNum = (parseInputNum % 100) / 10;
         int thirdNum =  (parseInputNum % 100) % 10;
 
         if(this.generateNums.get(0) == firstNum) {
@@ -76,7 +73,7 @@ public class BaseballGame2 {
         return strike;
     }
 
-    // 볼 개수
+    // 6. 볼 개수 카운트
     private int countBall (String inputNum) {
         int ball = 0;
         int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
@@ -117,7 +114,6 @@ public class BaseballGame2 {
                 System.out.println("정답입니다 !");
                 break;
             }
-
             // 7. 힌트 출력
             BaseballGameDisplay2.displayHint(strike, ball);
         }
