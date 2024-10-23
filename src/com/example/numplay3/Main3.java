@@ -12,20 +12,23 @@ public class Main3 {
         System.out.println("환영합니다 ! 원하시는 번호를 입력해주세요 \n 1. 게임시작하기 2. 게임 기록 보기 3. 종료하기");
         System.out.println("---------------------------------------------");
 
-        String input = sc.nextLine();
+        BaseballGame3 game = new BaseballGame3();
 
+        boolean retry = true;
+        while (retry) {
+            retry = false; // 초기값
+            String input = sc.nextLine();
         switch (input) {
             case "1":
-                while (true) {
-                    System.out.println("< 게임을 시작합니다. >");
-                    BaseballGame3 game = new BaseballGame3();
-                    game.play();
-                    break;
-                }
+                System.out.println("< 게임을 시작합니다. >");
+                game.play();
+                retry = true;
+                break;
+
             case "2":
                 System.out.println("< 게임 기록 >");
-                BaseballGame3 game = new BaseballGame3();
                 game.getHistory();
+                retry = true;
                 break;
 
             case "3":
@@ -34,7 +37,9 @@ public class Main3 {
 
             default:
                 System.out.println("올바른 숫자를 입력해주세요 !");
+                retry = true;
                 break;
+            }
         }
     }
 }

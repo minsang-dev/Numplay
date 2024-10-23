@@ -6,15 +6,14 @@ import java.util.*;
 
 public class BaseballGame3 {
     // --------
-    // 필드 전역변수
-    private final ArrayList<Integer> generateNums; //inputNum : 사용자 , generateNum : 컴퓨터
+    // 필드 전역변수 -> 이때만 this 가능.
+    private ArrayList<Integer> generateNums; //inputNum : 사용자 , generateNum : 컴퓨터
     private final List<Character> NUM_CHAR = List.of('1','2','3','4','5','6','7','8','9');
     private int gameNumber;
-    private final List<BaseballGameHistory> history = new ArrayList<>();
-
+    private final List<BaseballGameHistory> historyList = new ArrayList<>();
 
     //  -------
-    // generateNum 메소드
+    // generateNum 메소드 = 랜덤으로 돌려서 만드는 메서드
     ArrayList<Integer> generateNum() {
         HashSet<Integer> answerNum = new HashSet<>();
         Random random = new Random();
@@ -23,14 +22,8 @@ public class BaseballGame3 {
             int randomNum = random.nextInt(9) + 1; // 0~n까지 n은 첫번째 입력값 (n=9)
             answerNum.add(randomNum);
         }
-        answerNum.stream().forEach(System.out::println); // 임시 고정값
+//        answerNum.stream().forEach(System.out::println); // 임시 고정값
         return new ArrayList<>(answerNum); // answerNum = generateNum 비교
-    }
-
-    // ---------
-    // 생성자
-    public BaseballGame3() {
-        this.generateNums = generateNum(); //지역변수를 만들어서 전역변수에 할당.
     }
 
     protected boolean validateInput(String inputNum) {
@@ -99,6 +92,7 @@ public class BaseballGame3 {
     }
 
     public void play() {
+        this.generateNums = generateNum(); // 랜덤 정답 만들고 시작
         int attempt = 0; // 게임시도 횟수 초기화
 
         while (true) {
@@ -127,17 +121,29 @@ public class BaseballGame3 {
             // 7. 힌트 출력
             BaseballGameDisplay2.displayHint(strike, ball);
         }
-        gameNumber++;
-        history.add(new BaseballGameHistory(gameNumber, attempt));
+        this.gameNumber++;
+        this.historyList.add(new BaseballGameHistory(this.gameNumber, attempt));
     }
 
     public void getHistory() {
-        if(history.isEmpty()) {
+        if(this.historyList.isEmpty()) {
             System.out.println("기록이 없습니다 !");
         } else {
-            for (int i = 0; i < history.size(); i++) {
-                System.out.println(BaseballGameDisplay3.displayHistory(history.get(i)));
+            for(int i = 0; i < this.historyList.size(); i++) {
+                System.out.println(displayHistory(historyList.get(i)));
             }
         }
+    }
+    public static void displayHint(int strike, int ball) {
+        if (strike == 0 && ball == 0) {
+            System.out.println("아웃");
+        } else {
+            System.out.println(strike + "스트라이크 " + ball + "볼");
+        }
+    }
+
+    public void displayHistory(BaseballGameHistory history) {
+        System.out.println(history.getGameNumber() + " 번째 게임 : 시도 횟수 - "
+                + history.getAttempt());
     }
 }
