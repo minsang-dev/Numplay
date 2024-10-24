@@ -46,7 +46,7 @@ public class BaseballGame3 {
         return true;
     }
 
-    // 4. 스트라이크 개수 카운트
+    // 스트라이크 개수 카운트
     private int countStrike(String inputNum) {
         int strike = 0;
         int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
@@ -67,7 +67,7 @@ public class BaseballGame3 {
         return strike;
     }
 
-    // 6. 볼 개수 카운트
+    // 볼 개수 카운트
     private int countBall(String inputNum) {
         int ball = 0;
         int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
@@ -92,28 +92,28 @@ public class BaseballGame3 {
         int attempt = 0; // 게임시도 횟수 초기화
 
         while (true) {
-            // 1. 유저에게 입력값을 받음
+            // 유저에게 입력값을 받음
             Scanner sc = new Scanner(System.in);
             System.out.println("숫자를 입력하세요: ");
             String input = sc.next();
 
-            // 2. 올바른 입력값을 받았는지 검증
+            // 올바른 입력값을 받았는지 검증
             if (!validateInput(input)) {
                 System.out.println("잘못된 입력값입니다 !");
                 continue;
             }
             attempt++; // 게임 시도 횟수 증가
 
-            // 4. 스트라이크 개수 계산 & 볼 개수 계산
+            // 스트라이크 개수 계산 & 볼 개수 계산
             int strike = countStrike(input);
             int ball = countBall(input) - strike;
 
-            // 5. 정답 여부 확인, 만약 정답이면 break 이용해 반복문 탈출
+            // 정답 여부 확인, 만약 정답이면 break 이용해 반복문 탈출
             if (strike == 3) {
                 System.out.println("정답입니다 !");
                 break;
             }
-            // 7. 힌트 출력
+            // 힌트 출력
             BaseballGameDisplay2.displayHint(strike, ball);
         }
         this.gameNumber++;

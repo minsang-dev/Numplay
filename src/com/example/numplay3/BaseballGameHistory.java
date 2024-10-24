@@ -1,8 +1,6 @@
 package com.example.numplay3;
 
 public class BaseballGameHistory {
-
-//    private ArrayList<BaseballGame3> baseballGame3s = new ArrayList<>();
     private final int gameNumber; // 몇번째 게임인지
     private final int attempt; // 시도 횟수
     
