@@ -1,7 +1,5 @@
 package com.example.numplay3;
 
-import com.example.numplay2.BaseballGame2;
-
 import java.util.Scanner;
 
 public class Main3 {
@@ -14,30 +12,24 @@ public class Main3 {
 
         BaseballGame3 game = new BaseballGame3();
 
-        boolean retry = true;
+        boolean retry = true; // retry 라는 변수에 true라는 값으로 초기화해줌
         while (retry) {
-            retry = false; // 초기값
             String input = sc.nextLine();
         switch (input) {
             case "1":
                 System.out.println("< 게임을 시작합니다. >");
                 game.play();
-                retry = true;
                 break;
-
             case "2":
                 System.out.println("< 게임 기록 >");
                 game.getHistory();
-                retry = true;
                 break;
-
             case "3":
                 System.out.println("< 숫자 야구 게임을 종료합니다 >");
+                retry = false; // 초기값
                 break;
-
             default:
                 System.out.println("올바른 숫자를 입력해주세요 !");
-                retry = true;
                 break;
             }
         }

@@ -8,7 +8,7 @@ public class BaseballGame3 {
     // --------
     // 필드 전역변수 -> 이때만 this 가능.
     private ArrayList<Integer> generateNums; //inputNum : 사용자 , generateNum : 컴퓨터
-    private final List<Character> NUM_CHAR = List.of('1','2','3','4','5','6','7','8','9');
+    private final List<Character> NUM_CHAR = List.of('1', '2', '3', '4', '5', '6', '7', '8', '9');
     private int gameNumber;
     private final List<BaseballGameHistory> historyList = new ArrayList<>();
 
@@ -39,7 +39,6 @@ public class BaseballGame3 {
         if (!NUM_CHAR.containsAll(List.of(num1, num2, num3))) {
             return false;
         }
-
         // 중복된 문자가 있는지 확인
         if (num1 == num2 || num1 == num2 || num2 == num3) {
             return false;
@@ -47,42 +46,39 @@ public class BaseballGame3 {
         return true;
     }
 
-    /* 규칙
-     * 1. 숫자와 자리의 위치가 맞으면 스트라이크, 숫자만 맞으면 볼
-     * 숫자가 하나도 맞지 않을 경우 아웃으로 표시됨 */
-
     // 4. 스트라이크 개수 카운트
-    private int countStrike (String inputNum){
+    private int countStrike(String inputNum) {
         int strike = 0;
-        int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
-
-        int firstNum = parseInputNum / 100;
-        int secondNum = (parseInputNum % 100) / 10;
-        int thirdNum =  (parseInputNum % 100) % 10;
-
-        if(this.generateNums.get(0) == firstNum) {
-            strike++;
-        }
-        if(this.generateNums.get(1) == secondNum) {
-            strike++;
-        }
-        if(this.generateNums.get(2) == thirdNum) {
-            strike++;
-        }
-        return strike;
-    }
-
-    // 6. 볼 개수 카운트
-    private int countBall (String inputNum) {
-        int ball = 0;
         int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
 
         int firstNum = parseInputNum / 100;
         int secondNum = (parseInputNum % 100) / 10;
         int thirdNum = (parseInputNum % 100) % 10;
 
-        for(int i = 0; i < 3; i++) {
-            if(this.generateNums.get(i) == firstNum ||
+        if (this.generateNums.get(0) == firstNum) {
+            strike++;
+        }
+        if (this.generateNums.get(1) == secondNum) {
+            strike++;
+        }
+        if (this.generateNums.get(2) == thirdNum) {
+            strike++;
+        }
+        return strike;
+    }
+
+    // 6. 볼 개수 카운트
+    private int countBall(String inputNum) {
+        int ball = 0;
+        int parseInputNum = Integer.parseInt(inputNum); // 문자열을 숫자로 바꿔줌
+
+        // 나머지 구하기 방식으로 각 자리 수 분별
+        int firstNum = parseInputNum / 100;
+        int secondNum = (parseInputNum % 100) / 10;
+        int thirdNum = (parseInputNum % 100) % 10;
+
+        for (int i = 0; i < 3; i++) {
+            if (this.generateNums.get(i) == firstNum ||
                     this.generateNums.get(i) == secondNum ||
                     this.generateNums.get(i) == thirdNum) {
                 ball++;
@@ -106,7 +102,6 @@ public class BaseballGame3 {
                 System.out.println("잘못된 입력값입니다 !");
                 continue;
             }
-            
             attempt++; // 게임 시도 횟수 증가
 
             // 4. 스트라이크 개수 계산 & 볼 개수 계산
@@ -124,16 +119,7 @@ public class BaseballGame3 {
         this.gameNumber++;
         this.historyList.add(new BaseballGameHistory(this.gameNumber, attempt));
     }
-
-    public void getHistory() {
-        if(this.historyList.isEmpty()) {
-            System.out.println("기록이 없습니다 !");
-        } else {
-            for(int i = 0; i < this.historyList.size(); i++) {
-                System.out.println(displayHistory(historyList.get(i)));
-            }
-        }
-    }
+    // ? 스트라이크 ? 볼
     public static void displayHint(int strike, int ball) {
         if (strike == 0 && ball == 0) {
             System.out.println("아웃");
@@ -141,9 +127,19 @@ public class BaseballGame3 {
             System.out.println(strike + "스트라이크 " + ball + "볼");
         }
     }
-
+    // 메인 창에서 2 클릭 시 [ 기록 x -> 출력, 기록 o -> 저장된 게임 기록 불러오기 ]
+    public void getHistory() {
+        if (this.historyList.isEmpty()) {
+            System.out.println("기록이 없습니다 !");
+        } else {
+            for(int i = 0; i < this.historyList.size(); i++) {
+                displayHistory(historyList.get(i));
+            }
+        }
+    }
+    // 게임기록보기 [ 2 -> ?번째 게임 : 시도 횟수 - ? 출력 ]
     public void displayHistory(BaseballGameHistory history) {
-        System.out.println(history.getGameNumber() + " 번째 게임 : 시도 횟수 - "
+        System.out.println(history.getGameNumber() + "번째 게임 : 시도 횟수 - "
                 + history.getAttempt());
     }
 }
