@@ -39,7 +39,7 @@
    - 입력한 수에 따른 결과를 볼, 스트라이크 개수 or 아웃 표시
    - 실행 결과
  
-  ---
+ ---
 
-  ### 트러블슈팅
-  https://xxmnss.tistory.com/17
+### 트러블슈팅
+https://xxmnss.tistory.com/17
