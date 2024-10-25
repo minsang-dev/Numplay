@@ -1,7 +1,5 @@
 package com.example.numplay3;
 
-import com.example.numplay2.BaseballGameDisplay2;
-
 import java.util.*;
 
 public class BaseballGame3 {
@@ -110,11 +108,11 @@ public class BaseballGame3 {
 
             // 정답 여부 확인, 만약 정답이면 break 이용해 반복문 탈출
             if (strike == 3) {
-                System.out.println("정답입니다 !");
+                System.out.println("정답입니다 !\n 게임을 더 하시려면 1\n  종료하시려면 3을 입력해주세요 !");
                 break;
             }
             // 힌트 출력
-            BaseballGameDisplay2.displayHint(strike, ball);
+            displayHint(strike, ball);
         }
         this.gameNumber++;
         this.historyList.add(new BaseballGameHistory(this.gameNumber, attempt));

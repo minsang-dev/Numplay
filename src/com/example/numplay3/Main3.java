@@ -7,7 +7,7 @@ public class Main3 {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("---------------------------------------------");
-        System.out.println("환영합니다 ! 원하시는 번호를 입력해주세요 \n 1. 게임시작하기 2. 게임 기록 보기 3. 종료하기");
+        System.out.println("환영합니다 ! 원하시는 번호를 입력해주세요\n 1. 게임시작하기 2. 게임 기록 보기 3. 종료하기");
         System.out.println("---------------------------------------------");
 
         BaseballGame3 game = new BaseballGame3();

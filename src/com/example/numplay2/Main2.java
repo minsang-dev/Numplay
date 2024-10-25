@@ -23,7 +23,6 @@ public class Main2 {
             case "2":
                 System.out.println("< 게임 기록 >");
                 break;
-
             case "3":
                 System.out.println("< 게임을 종료합니다. >");
                 break;
